@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Chunk {
-  id INT @id @default(autoincrement())
-  title string
-  code string
+  id Int @id @default(autoincrement())
+  title String
+  code String
 }
 
