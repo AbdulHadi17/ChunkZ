@@ -6,22 +6,21 @@ import { Button } from './ui/button'
 import type{Chunk} from '@prisma/client'
 import { useState } from 'react'
 
-const saveChunk = async ()=>{
-  // "use server"
-
-  console.log('submitting chunk')
-}
-
-
+import * as actions from '@/actions/actions'
 
 
 const TextEditor = ({chunk}:{chunk:Chunk}) => {
 
   const [code, setCode] = useState(chunk.code);
 
+const handleCodeChange = (thecode:string = '')=>{
+  setCode(thecode);
+  console.log('Code Changed');
+}
 
+const saveCode = actions.saveChunk.bind(null,chunk.id as number , code as string);
 
-  return ( <form action={saveChunk}
+  return ( <form action={saveCode}
    className='flex flex-col gap-6 mx-auto p-6 bg-slate-100 w-full rounded-xl'>
     <div className='flex justify-between items-center gap-4'>
     <h3 className='font-bold font-mono text-xl text-slate-700 text-left'>{chunk.title}</h3>
@@ -34,6 +33,7 @@ const TextEditor = ({chunk}:{chunk:Chunk}) => {
         defaultLanguage="javascript"
         theme='vs-dark'
         defaultValue= {code}
+        onChange={handleCodeChange}
         />
     
     </div>
