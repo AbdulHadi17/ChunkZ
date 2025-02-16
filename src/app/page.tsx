@@ -2,6 +2,10 @@ import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
+
+// export const dynamic = 'force-dynamic'  // no caching for this page
+// export const revalidate = 0;  // no caching for this page
+
 export default async function Home() {
   
   const codeList = await prisma.chunk.findMany();

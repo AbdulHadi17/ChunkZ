@@ -4,6 +4,9 @@ import Link from 'next/link';
 import React from 'react'
 import {deleteChunk} from '@/actions/actions'
 
+
+
+
 const viewChunkPage = async ({params}:{params:Promise<{id:string}>}) => {
   
     const chunkID:number = parseInt((await params).id);
@@ -47,3 +50,18 @@ const handleDelete = deleteChunk.bind(null,chunkID)
 }
 
 export default viewChunkPage
+
+
+export const generateStaticParams = async ()=>{
+
+    const chunks = await prisma.chunk.findMany();
+
+    return chunks.map(chunk=>{
+        return {
+            params:{
+                id:chunk.id.toString()
+            }
+        }
+    })
+
+}
